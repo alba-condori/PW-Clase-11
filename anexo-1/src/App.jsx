@@ -1,0 +1,50 @@
+import { useState } from 'react'
+import './App.css'
+import { useEffect } from 'react'
+
+const URL = "https://api.github.com/users/alba-condori"
+const = "https://pokeapi.co/api/v2/pokemon/${}"
+
+function App() {
+  const [datos, setDatos] = useState(null)
+  const [error, setError] = useState(null)
+  const [cargando, setCargando] = useState(true)
+
+
+  useEffect(() => {
+    async function traerPerfil() {
+      try {
+        const respuesta = await fetch(URL);
+        if (!respuesta.ok) {
+          throw new Error(`Error ${respuesta.status}`);
+        }
+        const perfil = await respuesta.json();
+        console.log(perfil);
+        setDatos(perfil);
+      } catch (error) {
+        console.log(error);
+        setError(error);
+      } finally {
+        setCargando(false);
+      }
+    }
+    traerPerfil();
+  }, []);
+
+  if (cargando) {
+    return <>cargando...</>;
+  }
+  if (error) {
+    return <>Error: {error}</>
+  }
+
+  return (
+    <>
+      <img src={datos.avatar_url} alt={datos.avatar_url || datos.name} />
+      <h2>{datos.name}</h2>
+      <h3>{datos.public_repos}</h3>
+    </>
+  )
+}
+
+export default App
