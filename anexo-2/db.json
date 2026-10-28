@@ -1,0 +1,10 @@
+{
+  "tareas": [
+    {
+      "texto": "HacerLaTareaDeLengua",
+      "hecha": true,
+      "id": "1H7NAZqqCPU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
